@@ -7,7 +7,8 @@ var cors = require('cors') ;
 var clientSessions = require('client-sessions');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var patientRoute = require('./routes/patientRoute');
+var doctorRouter = require('./routes/doctorRoute');
+var patientRouter = require('./routes/patientRoute');
 var app = express();
 
 app.use(cors());//Default cors allowall we have to change heders
@@ -39,7 +40,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/patient', patientRoute);
+app.use('/doctor', doctorRouter);
+app.use('/patient', patientRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

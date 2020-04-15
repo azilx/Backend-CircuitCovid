@@ -47,7 +47,8 @@ exports.register_post = function(req, res) {
         console.log(doc);
         res.status(201).send({
             status: true,
-            error: ''
+            error: '',
+            user: user
         });
     }).catch((e) => {
         res.status(500).send(e);
