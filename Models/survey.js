@@ -15,7 +15,8 @@ var SurveySchema = new mongoose.Schema({
     name : String ,
     questions : [String],
     answers : [String],
+    date : Date,
     doctor : {type:doctor.schema , ref:'Doctor'},
-    patient : {type:patient.schema , ref:'Patient'}
+    patient : {type:patient.schema , ref:'Patient'},
 });
 module.exports =  mongoose.model('Survey',SurveySchema);
