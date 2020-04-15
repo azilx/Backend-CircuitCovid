@@ -9,7 +9,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var doctorRouter = require('./routes/doctorRoute');
 var patientRouter = require('./routes/patientRoute');
-var surveyRouter = require('./routes/surveyRoute');
 var app = express();
 
 app.use(cors());//Default cors allowall we have to change heders
@@ -43,7 +42,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/doctor', doctorRouter);
 app.use('/patient', patientRouter);
-app.use('/survey', surveyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
