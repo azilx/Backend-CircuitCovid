@@ -25,7 +25,8 @@ router.post('/delete', function (req, res, next) {
       data.remove();
     res.json(data);
   })
-    
-  
 })
+router.post('/setPending', function (req, res, next) {
+  patientController.setPendingSurveyOn(req,res);
+});
 module.exports = router;

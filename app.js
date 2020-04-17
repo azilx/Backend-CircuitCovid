@@ -10,7 +10,11 @@ var usersRouter = require('./routes/users');
 var doctorRouter = require('./routes/doctorRoute');
 var patientRouter = require('./routes/patientRoute');
 var surveyRouter = require('./routes/surveyRoute');
+var db = require('./db.js');
+var surveyPlan = require('./surveyPlan');
+
 var app = express();
+
 
 app.use(cors());//Default cors allowall we have to change heders
 
@@ -28,7 +32,7 @@ app.use(clientSessions({
 
 
 
-var db = require('./db.js');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -61,4 +65,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 db.connectDB();
+surveyPlan.plan();
 module.exports = app;

@@ -14,5 +14,8 @@ var PatientSchema = new mongoose.Schema({
     cin: String ,
     age: String ,
     gender : String ,
+    risky : Boolean ,
+    pendingSurvey : Boolean,
+    alert : Boolean
 });
 module.exports =  mongoose.model('Patient',PatientSchema);
