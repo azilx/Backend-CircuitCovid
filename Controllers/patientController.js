@@ -6,6 +6,9 @@ exports.add = function(data){
 exports.getAll = function(){
     return patient.find();
 }
+exports.getByDoctor = function(id){
+    return patient.find({doctor: {_id : id}});
+}
 exports.getById = function(id) {
     return patient.findById(id);
 }

@@ -8,6 +8,16 @@ router.get('/all', function(req, res, next) {
         res.json(data);
     })
 });
+router.get('/getByDoctor', function(req, res, next) {
+  patientController.getByDoctor(req.body.doctor._id).exec().then(data =>{
+      res.json(data);
+  })
+});
+router.get('/getByID', function(req, res, next) {
+  patientController.getById(req.body._id).exec().then(data =>{
+      res.json(data);
+  })
+});
 router.post('/add', function(req, res, next) {
     console.log(req.body);
     patientController.add(req.body);

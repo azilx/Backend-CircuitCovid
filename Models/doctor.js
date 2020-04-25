@@ -15,6 +15,5 @@ var DoctorSchema = new mongoose.Schema({
     cin: String ,
     user : {type:user.schema , ref:'User'},
     hospital : {type:hospital.schema , ref:'hospital'}
-
 });
 module.exports =  mongoose.model('Doctor',DoctorSchema);

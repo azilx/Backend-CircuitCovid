@@ -9,6 +9,12 @@ router.get('/all', function(req, res, next) {
     })
 });
 
+router.get('/getByPatient', function(req, res, next) {
+  surveyController.getByPatient(req.body.patient._id).exec().then(data =>{
+      res.json(data);
+  })
+});
+
 router.post('/add', function(req, res, next) {
     surveyController.add(req.body)
     res.status(201).send({

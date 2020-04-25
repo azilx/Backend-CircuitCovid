@@ -1,5 +1,7 @@
 var survey = require('../Models/survey');
 var schedule = require('node-schedule');
+
+
 exports.add = function(data){
     survey.create(data);
 }
@@ -8,6 +10,9 @@ exports.getAll = function(){
 }
 exports.getById = function(id) {
     return survey.findById(id);
+}
+exports.getByPatient = function(id){
+    return survey.find({patient: {_id : id}});
 }
 exports.remove = function(id){
     return survey.findById(id);

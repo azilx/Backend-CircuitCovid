@@ -1,6 +1,6 @@
 const config = require('../config');
 var mongoose = require('mongoose');
-
+const doctor = require('./doctor');
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
 
@@ -99,6 +99,7 @@ var PatientSchema = new mongoose.Schema({
             igs2: Number,
             sofa: Number
         }]
-    }]
+    }],
+    doctor :{type: doctor.schema, ref:'doctors'}
 });
 module.exports =  mongoose.model('Patient',PatientSchema);
