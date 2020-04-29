@@ -29,10 +29,6 @@ app.use(clientSessions({
       ephemeral: false // when true, cookie expires when the browser closes
   }
 }))
-
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
