@@ -11,6 +11,8 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var PatientSchema = new mongoose.Schema({
+    pendingSurvey : Boolean,
+    patientState : String,
     name: {type: String ,required: true},
     age: {type: Number ,required: true},
     gender : {type: String , enum: ["Male", "Female"],required: true},
