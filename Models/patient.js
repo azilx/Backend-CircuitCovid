@@ -102,6 +102,7 @@ var PatientSchema = new mongoose.Schema({
         }]
     }],
     doctor :{type: doctor.schema, ref:'doctors'},
-    user : {type:user.schema , ref:'User'}
+    user : {type:user.schema , ref:'User'},
+    treatment : [String]
 });
 module.exports =  mongoose.model('Patient',PatientSchema);
