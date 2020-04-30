@@ -21,7 +21,6 @@ var PatientSchema = new mongoose.Schema({
     phone: {type: String ,required: true},
     address: {type: String, required: true},
     risky : Boolean ,
-    pendingSurvey : Boolean,
     alert : Boolean,
     reasonForHospitalisation: [{
         symptoms: [{
@@ -89,7 +88,6 @@ var PatientSchema = new mongoose.Schema({
         fc: {type: Number, required: true, min: 0, max: 300},
         gcs: {type: Number, required: true, min: 3, max: 15},
         gad: {type: Number, min: 0.1, max: 6},
-        spo2: {type: Number, required: true, min: 30, max: 100},
         sous: [{
             nad: Boolean,
             dob: Boolean,
