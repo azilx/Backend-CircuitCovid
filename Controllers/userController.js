@@ -1,7 +1,7 @@
 var User = require('../Models/user');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-
+var doctor = require('../Models/doctor');
 var config = require('../config');
 
 var jwt_sign = function(payload, secret) {
@@ -73,8 +73,8 @@ exports.login_post = function(req, res) {
         // if found, create jwt token
         if (doc) {
             userInfo = (({
-                name, user, role
-            }) => ({name, user, role}))(doc);
+                _id,name, user, role
+            }) => ({_id,name, user, role}))(doc);
 
             // sign token
             return jwt_sign(userInfo, config.secret);
@@ -87,14 +87,28 @@ exports.login_post = function(req, res) {
         }
     }).then((token) => {
         // set client clientSessions
+        if(userInfo.role=='doctor')
+        {
+            doctor.find({user : {
+                "_id" : userInfo._id
+            }}).exec().then(
+                data=>{
+                    
+                    res.status(200).send({
+                        doc : data,
+                        token: token
+                    });
+                }
+            );
         
-
-        res.status(200).send({
-            user: userInfo.user,
-            name: userInfo.name,
-            role: userInfo.role,
-            token: token
-        });
+        }
+        else
+        {
+            res.status(500).send({
+                error : "role not found"
+            });
+        }
+        
     }).catch((e) => {
         console.log("here");
         console.log(e);
