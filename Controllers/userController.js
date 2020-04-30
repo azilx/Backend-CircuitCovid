@@ -2,6 +2,7 @@ var User = require('../Models/user');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var doctor = require('../Models/doctor');
+var patient = require('../Models/patient');
 var config = require('../config');
 
 var jwt_sign = function(payload, secret) {
@@ -96,6 +97,22 @@ exports.login_post = function(req, res) {
                     data.user=userInfo;
                     res.status(200).send({
                         doc : data,
+                        user : userInfo,
+                        token: token
+                    });
+                }
+            );
+        
+        }
+        else if(userInfo.role=='patient')
+        {
+            patient.find({user : {
+                "_id" : userInfo._id
+            }}).exec().then(
+                data=>{
+                    data.user=userInfo;
+                    res.status(200).send({
+                        patient : data,
                         user : userInfo,
                         token: token
                     });

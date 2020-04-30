@@ -9,7 +9,7 @@ router.get('/all', function(req, res, next) {
     })
 });
 
-router.get('/getByPatient', function(req, res, next) {
+router.post('/getByPatient', function(req, res, next) {
   surveyController.getByPatient(req.body.patient._id).exec().then(data =>{
       res.json(data);
   })

@@ -1,6 +1,21 @@
 var patient = require('../Models/patient');
+var User = require('../Models/user');
+var bcrypt = require('bcryptjs');
+var config = require('../config');
 
 exports.add = function(data){
+    
+    let user = (({
+        name, user, pwd, role
+    }) => ({name, user, pwd, role}))(data.user);
+
+    user.pwd = bcrypt.hashSync(user.pwd, config.salt);
+
+    user = new User(user);
+
+    // save new user to db
+    user.save();
+    data.user._id=user._id;
     patient.create(data);
 }
 exports.getAll = function(){
