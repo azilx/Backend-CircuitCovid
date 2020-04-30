@@ -93,9 +93,10 @@ exports.login_post = function(req, res) {
                 "_id" : userInfo._id
             }}).exec().then(
                 data=>{
-                    
+                    data.user=userInfo;
                     res.status(200).send({
                         doc : data,
+                        user : userInfo,
                         token: token
                     });
                 }
