@@ -1,8 +1,33 @@
 var patient = require('../Models/patient');
+var User = require('../Models/user');
+var bcrypt = require('bcryptjs');
+var config = require('../config');
 
 exports.add = function(data){
-    patient.create(data);
-}
+    
+    let user = (({
+        name, user, pwd, role
+    }) => ({name, user, pwd, role}))(data.user);
+
+    User.findOne({user: user.user}).then((doc) => {
+        if (doc) {
+            return Promise.reject({
+                status: false,
+                error: 'User has been already exist.'
+            })
+
+        } else {
+                user.pwd = bcrypt.hashSync(user.pwd, config.salt);
+
+                user = new User(user);
+
+                // save new user to db
+                user.save();
+                data.user._id=user._id;
+                patient.create(data);
+            }
+        });
+};
 exports.getAll = function(){
     return patient.find();
 }
