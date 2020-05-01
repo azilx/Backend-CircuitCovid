@@ -9,15 +9,25 @@ exports.add = function(data){
         name, user, pwd, role
     }) => ({name, user, pwd, role}))(data.user);
 
-    user.pwd = bcrypt.hashSync(user.pwd, config.salt);
+    User.findOne({user: user.user}).then((doc) => {
+        if (doc) {
+            return Promise.reject({
+                status: false,
+                error: 'User has been already exist.'
+            })
 
-    user = new User(user);
+        } else {
+                user.pwd = bcrypt.hashSync(user.pwd, config.salt);
 
-    // save new user to db
-    user.save();
-    data.user._id=user._id;
-    patient.create(data);
-}
+                user = new User(user);
+
+                // save new user to db
+                user.save();
+                data.user._id=user._id;
+                patient.create(data);
+            }
+        });
+};
 exports.getAll = function(){
     return patient.find();
 }
