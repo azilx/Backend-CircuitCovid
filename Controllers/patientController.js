@@ -20,7 +20,7 @@ exports.update = function(id,obj){
     });
 }
 exports.setPendingSurveyOn = function(patient){
-    if(patientState=='all')
+    if(patient.patientState=='all')
     {
         var conditions = {  }
             , update = {pendingSurvey: true,}
