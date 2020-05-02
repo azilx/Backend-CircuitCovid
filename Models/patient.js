@@ -14,12 +14,15 @@ var PatientSchema = new mongoose.Schema({
     pendingSurvey : Boolean,
     patientState : String,
     name: {type: String ,required: true},
-    age: {type: Number ,required: true},
+    familyName: {type: String ,required: true},
+    birthday: {type: String,required: true},
     gender : {type: String , enum: ["Male", "Female"],required: true},
     email: String,
-    cin: {type: String ,required: true},
+    cin: String,
     phone: {type: String ,required: true},
+    secondPhone: String,
     address: {type: String, required: true},
+    gouvernorat: String,
     risky : Boolean ,
     alert : Boolean,
     reasonForHospitalisation: [{
@@ -36,16 +39,21 @@ var PatientSchema = new mongoose.Schema({
             diarrhea: Boolean,
             aeg: Boolean,
             nausea: Boolean,
-            vomit: Boolean
+            vomit: Boolean,
+            headaches: Boolean,
+            Rhinitis: Boolean,
+            myalgia: Boolean,
+            muscleSoreness: Boolean
         }],
         distress: [{
             respiratoryDistress: Boolean,
             neurologicalDistress: Boolean,
             hemodynamicInstability: Boolean,
             metabolicEmergency: Boolean
-        }]
+        }],
+        other: String
     }],
-    symptomsStartDate: {type: Date,required: true},
+    symptomsStartDate: Date,
     firstSymptoms: String,
     background: [{
         chronicPathologies: [{
@@ -64,7 +72,7 @@ var PatientSchema = new mongoose.Schema({
             activeCancer: Boolean,
             RenalFailure: Boolean
         }],
-        usualTreatment: {type: String, required: true},
+        usualTreatment: String,
         recentTreatment: [{
             ains: Boolean,
             corticotherapy: Boolean,
@@ -88,6 +96,7 @@ var PatientSchema = new mongoose.Schema({
         fc: {type: Number, required: true, min: 0, max: 300},
         gcs: {type: Number, required: true, min: 3, max: 15},
         gad: {type: Number, min: 0.1, max: 6},
+        temperatur : {type: Number, required: true, min : 27, max: 43}, 
         sous: [{
             nad: Boolean,
             dob: Boolean,
@@ -101,6 +110,8 @@ var PatientSchema = new mongoose.Schema({
             sofa: Number
         }]
     }],
+    pcr: String,
+    orientation: String,
     doctor :{type: doctor.schema, ref:'doctors'},
     user : {type:user.schema , ref:'User'},
     treatment : [String]
