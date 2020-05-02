@@ -13,7 +13,6 @@ router.post('/add', function(req, res, next) {
     res.status(201).send({
         status: true,
         error: '',
-        doctor: req.body
     });
 });
 router.post('/update', function (req, res, next) {

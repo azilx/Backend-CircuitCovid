@@ -23,8 +23,9 @@ exports.add = function(data){
 
                 // save new user to db
                 user.save();
-                data.user._id=user._id;
-                patient.create(data);
+                pat = new patient(data);
+                pat.user={_id : user._id}
+                pat.save();
             }
         });
 };

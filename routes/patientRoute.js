@@ -21,7 +21,10 @@ router.post('/getByID', function(req, res, next) {
 router.post('/add', function(req, res, next) {
     console.log(req.body);
     patientController.add(req.body);
-    res.send(req.body);
+    res.status(201).send({
+      status: true,
+      error: '',
+  });
 });
 router.post('/update', function (req, res, next) {
   console.log(req.body);

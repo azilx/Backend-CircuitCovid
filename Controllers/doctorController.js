@@ -20,11 +20,11 @@ exports.add = function(data,res){
                 user.pwd = bcrypt.hashSync(user.pwd, config.salt);
 
                 user = new User(user);
-
                 // save new user to db
                 user.save();
-                data.user._id=user._id;
-                doctor.create(data);
+                doc = new doctor(data);
+                doc.user={_id : user._id}
+                doc.save();
             }
         });
 };
