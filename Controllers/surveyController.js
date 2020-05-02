@@ -1,9 +1,12 @@
 var survey = require('../Models/survey');
-var schedule = require('node-schedule');
+var patient = require('../Models/patient');
 
 
 exports.add = function(data){
-    survey.create(data);
+    patient.findOneAndUpdate({_id : data.patient._id},{pendingSurvey: false});
+    newSurvey=new survey(data);
+    newSurvey.patient={_id : data.patient._id}
+    newSurvey.save();
 }
 exports.getAll = function(){
     return survey.find();
