@@ -122,8 +122,9 @@ exports.login_post = function(req, res) {
         }
         else
         {
-            res.status(500).send({
-                error : "role not found"
+            res.status(200).send({
+                user : userInfo,
+                error : ""
             });
         }
         
