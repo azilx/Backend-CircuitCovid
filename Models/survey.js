@@ -12,10 +12,26 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var SurveySchema = new mongoose.Schema({
-    name : String ,
+    name : String,
     questions : [String],
     answers : [String],
     date : Date,
+    dyspnea : Boolean,
+    chestPain : Boolean, 
+    cough : Boolean,
+    asthenia : Boolean,
+    ageusia : Boolean,
+    anosmia : Boolean,
+    nausea : Boolean,
+    diarrhea : Boolean,
+    vomit : Boolean,
+    respiratoryDistress : Boolean,
+    headache : Boolean,
+    myalgia : Boolean,
+    confusion : Boolean,
+    rhinitis : Boolean,
+    temperature : { type: Number,required: true},
+    bloodPressure : String,
     doctor : {type:doctor.schema , ref:'Doctor'},
     patient : {type:patient.schema , ref:'Patient'},
 });
