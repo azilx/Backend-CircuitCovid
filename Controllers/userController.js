@@ -124,6 +124,7 @@ exports.login_post = function(req, res) {
         {
             res.status(200).send({
                 user : userInfo,
+                token: token,
                 error : ""
             });
         }
