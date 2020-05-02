@@ -26,12 +26,15 @@ router.post('/add', function(req, res, next) {
       error: '',
   });
 });
-router.post('/update', function (req, res, next) {
+router.put('/update', function (req, res, next) {
   console.log(req.body);
   patientController.update(req.body._id,req.body);
-  res.status(200);
+  res.status(200).send({
+    status: true,
+    error: '',
+});
 })
-router.post('/delete', function (req, res, next) {
+router.delete('/delete', function (req, res, next) {
   console.log(req.body);
   patientController.remove(req.body._id).exec().then(data=>{
     if(data)

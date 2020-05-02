@@ -12,15 +12,18 @@ router.post('/add', function(req, res, next) {
     doctorController.add(req.body)
     res.status(201).send({
         status: true,
-        error: '',
+        error: ''
     });
 });
-router.post('/update', function (req, res, next) {
+router.put('/update', function (req, res, next) {
   console.log(req.body);
   doctorController.update(req.body._id,req.body);
-  res.status(200);
+  res.status(200).send({
+    status: true,
+    error: ''
+});
 })
-router.post('/delete', function (req, res, next) {
+router.delete('/delete', function (req, res, next) {
   console.log(req.body);
   doctorController.remove(req.body._id).exec().then(data=>{
     if(data)
