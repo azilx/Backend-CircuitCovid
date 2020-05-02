@@ -70,7 +70,9 @@ var PatientSchema = new mongoose.Schema({
             immunosuppression: Boolean,
             generalIllness: Boolean,
             activeCancer: Boolean,
-            RenalFailure: Boolean
+            RenalFailure: Boolean,
+            smoker: Boolean,
+            pulmonaryPathology: Boolean
         }],
         usualTreatment: String,
         recentTreatment: [{
