@@ -8,6 +8,12 @@ router.get('/all', function(req, res, next) {
         res.json(data);
     })
 });
+
+router.post('/getByID', function(req, res, next) {
+  doctorController.getById(req.body._id).exec().then(data =>{
+      res.json(data);
+  })
+});
 router.post('/add', function(req, res, next) {
     doctorController.add(req.body)
     res.status(201).send({
@@ -21,16 +27,16 @@ router.put('/update', function (req, res, next) {
   res.status(200).send({
     status: true,
     error: ''
+  });
 });
-})
+
 router.delete('/delete', function (req, res, next) {
   console.log(req.body);
   doctorController.remove(req.body._id).exec().then(data=>{
     if(data)
       data.remove();
     res.json(data);
-  })
-    
-  
-})
+});
+});
+
 module.exports = router;
