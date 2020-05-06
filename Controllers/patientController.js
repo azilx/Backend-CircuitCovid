@@ -2,7 +2,7 @@ var patient = require('../Models/patient');
 var User = require('../Models/user');
 var bcrypt = require('bcryptjs');
 var config = require('../config');
-
+var mongoose = require('mongoose');
 exports.add = function(data){
     
     let user = (({
@@ -28,6 +28,35 @@ exports.add = function(data){
                 pat.save();
             }
         });
+};
+exports.addMany = function(users){
+    
+    users.forEach(data => {
+        let user = {
+            name: data.name, user: data.name, pwd: data.name, role : "patient"
+        }
+    
+        User.findOne({user: user.user}).then((doc) => {
+            if (doc) {
+                return Promise.reject({
+                    status: false,
+                    error: 'User has been already exist.'
+                })
+    
+            } else {
+                    user.pwd = bcrypt.hashSync(user.pwd, config.salt);
+    
+                    user = new User(user);
+    
+                    // save new user to db
+                    user.save();
+                    pat = new patient(data);
+                    pat.user={_id : user._id}
+                    pat.doctor={_id : mongoose.Types.ObjectId('4edd40c86762e0fb12000003')}
+                    pat.save();
+                }
+            });
+    });
 };
 exports.getAll = function(){
     return patient.find();

@@ -11,6 +11,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var PatientSchema = new mongoose.Schema({
+    
     pendingSurvey : Boolean,
     patientState : String,
     name: String,
@@ -116,6 +117,17 @@ var PatientSchema = new mongoose.Schema({
     orientation: String,
     doctor :{type: doctor.schema, ref:'doctors'},
     user : {type:user.schema , ref:'User'},
-    treatment : [String]
+    treatment: [{ 
+         hydroxycholoroquine: Boolean,
+         chloroquine: Boolean,
+         azithromycine: Boolean,
+         paracetamol: Boolean,
+         sintrom: Boolean,
+         lopinavir: Boolean,
+         oseltamivir: Boolean,
+         corticoides: Boolean,
+         heparine: String,
+         antibiotique: String
+     }]
 });
 module.exports =  mongoose.model('Patient',PatientSchema);

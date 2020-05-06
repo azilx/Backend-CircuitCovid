@@ -14,6 +14,13 @@ router.post('/getByID', function(req, res, next) {
       res.json(data);
   })
 });
+router.post('/getByParentID', function(req, res, next) {
+  doctorController.getByParentId(req.body._id).exec().then(data =>{
+      res.json(data);
+  }).catch(err =>{
+    console.log(err);
+  })
+});
 router.post('/add', function(req, res, next) {
     doctorController.add(req.body)
     res.status(201).send({

@@ -14,6 +14,7 @@ var DoctorSchema = new mongoose.Schema({
     name : String ,
     cnom: String ,
     user : {type:user.schema , ref:'users'},
+    parent : {_id :String } ,
     hospital : {type:hospital.schema , ref:'hospital'}
 });
 module.exports =  mongoose.model('Doctor',DoctorSchema);

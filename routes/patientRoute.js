@@ -26,6 +26,14 @@ router.post('/add', function(req, res, next) {
       error: '',
   });
 });
+router.post('/addMany', function(req, res, next) {
+  console.log(req.body);
+  patientController.addMany(req.body.patients);
+  res.status(201).send({
+    status: true,
+    error: '',
+});
+});
 router.put('/update', function (req, res, next) {
   console.log(req.body);
   patientController.update(req.body._id,req.body);

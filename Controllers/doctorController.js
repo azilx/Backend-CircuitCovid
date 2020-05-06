@@ -34,6 +34,9 @@ exports.getAll = function(){
 exports.getById = function(id) {
     return doctor.findById(id);
 }
+exports.getByParentId = function(id) {
+    return doctor.find({parent :{ _id:id } });
+}
 exports.remove = function(id){
     return doctor.findById(id);
 }
