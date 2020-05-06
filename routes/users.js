@@ -11,6 +11,6 @@ router.post('/login', userController.login_post);
 
 router.get('/user/getall', userController.getall);
 
-router.post('/user/changePassword', userController.changePassword);
+router.post('/changePassword', userController.changePassword);
 
 module.exports = router;
