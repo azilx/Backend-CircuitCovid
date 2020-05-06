@@ -136,3 +136,77 @@ exports.login_post = function(req, res) {
         res.status(400).send(e);
     })
 }
+
+/*exports.change_password = function(req, res) {
+    // get login info from req.body
+    let changeInfo = (({
+        _id, old_password, new_password, confirm_password
+    }) => ({_id, old_password, new_password, confirm_password}))(req.body);
+
+    // check if exist
+    User.findOne({"_id": changeInfo._id}, function(err, doc) {
+        if (err) {
+            res.status(500).send('internal_server_error');
+        }   else {
+                if (doc) {   
+                    userInfo = (({pwd
+                    }) => ({pwd}))(doc);
+
+                    let compare = bcrypt.compare(changeInfo.old_password,userInfo.pwd);
+                    if(compare) {
+                        if(changeInfo.new_password == changeInfo.confirm_password){
+                            userInfo.pwd = bcrypt.hash(changeInfo.new_password, config.salt);
+                            User(userInfo).save();
+                            res.status(200).send('password changed');
+                        }
+                        else { res.status(500).send('wrong confirm Password ') }
+                    }
+                    else { res.status(500).send('old password not matching') }
+                
+                }  
+                else {
+                    res.status(500).send('user not found');
+                }
+            }
+});
+*/
+exports.changePassword = function(req, res) {
+    changeInfo = (({
+        _id, old_password, new_password, confirm_password
+    }) => ({_id, old_password, new_password, confirm_password}))(req.body);
+
+    // find if old password is valid
+    User.findOne({ _id: changeInfo._id })
+      .then(oldUser => {
+        if (!oldUser) return res.status(404).send("User does not exist");
+
+
+        bcrypt.compare(changeInfo.old_password,oldUser.pwd, (err, isMatch) => {
+          if (err) {
+            return res.status(401).send("Unauthorized")
+          }
+          if (isMatch && changeInfo.new_password == changeInfo.confirm_password) {
+            // change to new password
+            oldUser.pwd = bcrypt.hashSync(changeInfo.new_password, config.salt);
+            oldUser
+              .save()
+              .then(newUser => {
+                res.status(200).send(newUser)
+              })
+              .catch(err => {
+                const message = err.message
+                res.status(500).json({
+                  status: "change password failed",
+                  msg: message
+                })
+              })
+          } else {
+            return res.status(401).send("Invalid old password")
+          }
+        })
+      })
+      .catch(err => {
+        res.status(500).send(err)
+      })
+  }
+
