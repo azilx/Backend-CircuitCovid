@@ -54,7 +54,7 @@ var PatientSchema = new mongoose.Schema({
         }],
         other: String
     }],
-    symptomsStartDate: Date,
+    symptomsStartDate: String,
     firstSymptoms: String,
     background: [{
         chronicPathologies: [{
@@ -73,7 +73,8 @@ var PatientSchema = new mongoose.Schema({
             activeCancer: Boolean,
             RenalFailure: Boolean,
             smoker: Boolean,
-            pulmonaryPathology: Boolean
+            pulmonaryPathology: Boolean,
+            otherchronicPathologies: String
         }],
         usualTreatment: String,
         recentTreatment: [{
@@ -127,7 +128,8 @@ var PatientSchema = new mongoose.Schema({
          oseltamivir: Boolean,
          corticoides: Boolean,
          heparine: String,
-         antibiotique: String
+         antibiotique: String,
+         otherTreatment: String
      }]
 });
 module.exports =  mongoose.model('Patient',PatientSchema);
