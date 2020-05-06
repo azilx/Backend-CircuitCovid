@@ -138,42 +138,43 @@ exports.login_post = function(req, res) {
 }
 
 exports.changePassword = function(req, res) {
-    changeInfo = (({
-        _id, old_password, new_password, confirm_password
-    }) => ({_id, old_password, new_password, confirm_password}))(req.body);
 
-    // find if old password is valid
-    User.findOne({ _id: changeInfo._id })
-      .then(oldUser => {
-        if (!oldUser) return res.status(404).send("User does not exist");
-
-
-        bcrypt.compare(changeInfo.old_password,oldUser.pwd, (err, isMatch) => {
-          if (err) {
-            return res.status(401).send("Unauthorized")
-          }
-          if (isMatch && changeInfo.new_password == changeInfo.confirm_password) {
-            // change to new password
-            oldUser.pwd = bcrypt.hashSync(changeInfo.new_password, config.salt);
-            oldUser
-              .save()
-              .then(newUser => {
-                res.status(200).send(newUser)
-              })
-              .catch(err => {
-                const message = err.message
-                res.status(500).json({
-                  status: "change password failed",
-                  msg: message
+   changeInfo = (({
+                _id, old_password, new_password, confirm_password
+            }) => ({_id, old_password, new_password, confirm_password}))(req.body);
+        
+            // find if old password is valid
+            User.findOne({ _id: changeInfo._id })
+              .then(oldUser => {
+                if (!oldUser) return res.status(404).send("User does not exist");
+        
+        
+                bcrypt.compare(changeInfo.old_password,oldUser.pwd, (err, isMatch) => {
+                  if (err) {
+                    return res.status(401).send("Unauthorized")
+                  }
+                  if (isMatch && changeInfo.new_password == changeInfo.confirm_password) {
+                    // change to new password
+                    oldUser.pwd = bcrypt.hashSync(changeInfo.new_password, config.salt);
+                    oldUser
+                      .save()
+                      .then(newUser => {
+                        res.status(200).send(newUser)
+                      })
+                      .catch(err => {
+                        const message = err.message
+                        res.status(500).json({
+                          status: "change password failed",
+                          msg: message
+                        })
+                      })
+                  } else {
+                    return res.status(401).send("Invalid old password")
+                  }
                 })
               })
-          } else {
-            return res.status(401).send("Invalid old password")
-          }
-        })
-      })
-      .catch(err => {
-        res.status(500).send(err)
-      })
-  }
-
+              .catch(err => {
+                res.status(500).send(err)
+    })
+}
+    

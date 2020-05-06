@@ -2,8 +2,10 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 var jwtVerify = function(req, res, next) {
-    let token = req.sessions.token;
-
+    let token = req.headers.authorization.split(" ")[1];
+    if (!token) {
+        return res.status(403).send({ message: "No token provided!" });
+    }
     // decode jwt token
     jwt.verify(token, config.secret, (err, payload) => {
         console.log(payload);

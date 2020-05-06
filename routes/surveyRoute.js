@@ -1,21 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var surveyController = require('../Controllers/surveyController');
+const verifyToken = require("../middleware/jwt");
 
-
-router.get('/all', function(req, res, next) {
+router.get('/all', verifyToken, function(req, res, next) {
     surveyController.getAll().exec().then(data =>{
         res.json(data);
     })
 });
 
-router.post('/getByPatient', function(req, res, next) {
+router.post('/getByPatient', verifyToken, function(req, res, next) {
   surveyController.getByPatient(req.body.patient._id).exec().then(data =>{
       res.json(data);
   })
 });
 
-router.post('/add', function(req, res, next) {
+router.post('/add', verifyToken, function(req, res, next) {
     surveyController.add(req.body)
     res.status(201).send({
         status: true,
@@ -24,7 +24,7 @@ router.post('/add', function(req, res, next) {
     });
 });
 
-router.put('/update', function (req, res, next) {
+router.put('/update', verifyToken, function (req, res, next) {
   console.log(req.body);
   surveyController.update(req.body._id,req.body);
   res.status(200).send({
@@ -33,7 +33,7 @@ router.put('/update', function (req, res, next) {
 });
 });
 
-router.delete('/delete', function (req, res, next) {
+router.delete('/delete', verifyToken, function (req, res, next) {
   console.log(req.body);
   surveyController.remove(req.body._id).exec().then(data=>{
     if(data)
