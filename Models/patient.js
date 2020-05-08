@@ -24,6 +24,7 @@ var PatientSchema = new mongoose.Schema({
     secondPhone: String,
     address: String,
     gouvernorat: String,
+    nationality: String,
     risky : Boolean ,
     alert : Boolean,
     reasonForHospitalisation: [{
@@ -115,6 +116,10 @@ var PatientSchema = new mongoose.Schema({
         }]
     }],
     pcr: String,
+    datePcr: String,
+    tdm: String,
+    healthCareWorker: Boolean,
+    localCase: Boolean,
     orientation: String,
     doctor :{type: doctor.schema, ref:'doctors'},
     user : {type:user.schema , ref:'User'},
