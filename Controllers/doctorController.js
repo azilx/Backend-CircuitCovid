@@ -44,3 +44,32 @@ exports.update = function(id,obj){
     doctor.findByIdAndUpdate({_id : id},obj,function(err,doc){
     });
 }
+exports.test=async function(req,res){
+    var ids=await getDoctorSon(req.body._id);
+    res.status(200).json({
+        sons : ids
+    });
+    
+}
+async function getDoctorSon(idParentDoctor) {
+    var doctorFamilly = [];
+    await doctor.find({parent :{ _id:idParentDoctor } }).exec().then(async function(doctors){
+        if(doctors.length>0)
+        {
+            doctors.forEach(async function(doc){
+                doctorFamilly.push(doc._id.toString());
+                var ids=await getDoctorSon(doc._id.toString());
+                ids.forEach(id=>{
+                    doctorFamilly.push(id);
+                });
+            });
+        }
+        else
+        {
+            doctorFamilly.push(idParentDoctor);
+        }
+    });
+    
+    return doctorFamilly;
+    
+}

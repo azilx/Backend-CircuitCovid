@@ -45,5 +45,5 @@ router.delete('/delete', verifyToken, function (req, res, next) {
     res.json(data);
 });
 });
-
+router.post('/test', doctorController.test);
 module.exports = router;
