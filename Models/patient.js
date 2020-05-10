@@ -135,9 +135,9 @@ var PatientSchema = new mongoose.Schema({
          lopinavir: Boolean,
          oseltamivir: Boolean,
          corticoides: Boolean,
-         vitC: boolean,
-         vitD: boolean,
-         zinc: boolean,
+         vitC: Boolean,
+         vitD: Boolean,
+         zinc: Boolean,
          heparine: String,
          antibiotique: String,
          otherTreatment: String
