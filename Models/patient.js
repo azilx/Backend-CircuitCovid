@@ -45,7 +45,9 @@ var PatientSchema = new mongoose.Schema({
             headaches: Boolean,
             Rhinitis: Boolean,
             myalgia: Boolean,
-            muscleSoreness: Boolean
+            muscleSoreness: Boolean,
+            abdominalPain: Boolean,
+            odynophagia: Boolean
         }],
         distress: [{
             respiratoryDistress: Boolean,
@@ -118,6 +120,7 @@ var PatientSchema = new mongoose.Schema({
     pcr: String,
     datePcr: String,
     tdm: String,
+    dateTdm:String,
     healthCareWorker: Boolean,
     localCase: Boolean,
     orientation: String,
@@ -132,6 +135,9 @@ var PatientSchema = new mongoose.Schema({
          lopinavir: Boolean,
          oseltamivir: Boolean,
          corticoides: Boolean,
+         vitC: boolean,
+         vitD: boolean,
+         zinc: boolean,
          heparine: String,
          antibiotique: String,
          otherTreatment: String
