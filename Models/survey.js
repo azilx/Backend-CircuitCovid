@@ -28,8 +28,11 @@ var SurveySchema = new mongoose.Schema({
     myalgia : Boolean,
     confusion : Boolean,
     rhinitis : Boolean,
-    temperature : { type: Number,required: true},
-    bloodPressure : String,
+    abdominalPain: Boolean,
+    odynophagia: Boolean,
+    temperatur : {type: Number,  min : 27, max: 43}, 
+    pas: {type: Number,  min: 0, max: 30},
+    pad: {type: Number,  min: 0, max: 20},
     doctor : {type:doctor.schema , ref:'Doctor'},
     patient : {type:patient.schema , ref:'Patient'},
 });
