@@ -19,8 +19,7 @@ router.post('/add', function(req, res, next) {
     surveyController.add(req.body)
     res.status(201).send({
         status: true,
-        error: '',
-        doctor: req.body
+        error: ''
     });
 });
 

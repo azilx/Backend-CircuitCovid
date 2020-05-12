@@ -88,7 +88,7 @@ exports.login_post = function(req, res) {
         }
     }).then((token) => {
         // set client clientSessions
-        if(userInfo.role=='doctor')
+        if(userInfo.role=='doctor'||userInfo.role=='Résident'||userInfo.role=='chefService'||userInfo.role=='Interne')
         {
             doctor.find({user : {
                 "_id" : userInfo._id
