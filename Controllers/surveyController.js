@@ -3,9 +3,7 @@ var patient = require('../Models/patient');
 
 
 exports.add = function(data){
-    patient.findOneAndUpdate({_id : data.patient._id},{pendingSurvey: false});
     newSurvey=new survey(data);
-    newSurvey.patient={_id : data.patient._id}
     newSurvey.save();
 }
 exports.getAll = function(){
