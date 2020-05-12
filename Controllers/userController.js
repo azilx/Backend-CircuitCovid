@@ -140,6 +140,9 @@ exports.update = function(id,obj){
     User.findByIdAndUpdate({_id : id},obj,function(err,doc){
     });
 }
+exports.remove = function(id){
+    return User.findById(id);
+}
 exports.changePassword = function(req, res) {
     changeInfo = (({
         _id, old_password, new_password, confirm_password

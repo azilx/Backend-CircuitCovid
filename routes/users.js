@@ -20,4 +20,12 @@ router.put('/update', function (req, res, next) {
       error: '',
   });
   })
+  router.delete('/delete', function (req, res, next) {
+    console.log(req.body);
+    userController.remove(req.body._id).exec().then(data=>{
+      if(data)
+        data.remove();
+      res.json(data);
+    })
+  })
 module.exports = router;
