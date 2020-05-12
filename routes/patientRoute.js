@@ -13,6 +13,11 @@ router.post('/getByDoctor', function(req, res, next) {
       res.json(data);
   })
 });
+router.post('/getByHospitalService', function(req, res, next) {
+  patientController.getByHospitalService(req.body.hospital).exec().then(data =>{
+      res.json(data);
+  })
+});
 router.post('/getByID', function(req, res, next) {
   patientController.getById(req.body._id).exec().then(data =>{
       res.json(data);

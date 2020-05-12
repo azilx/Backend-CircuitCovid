@@ -126,6 +126,7 @@ var PatientSchema = new mongoose.Schema({
     orientation: String,
     doctor :{type: doctor.schema, ref:'doctors'},
     user : {type:user.schema , ref:'User'},
+    hospital : {type:hospital.schema , ref:'hospital'},
     treatment: [{ 
          hydroxycholoroquine: Boolean,
          chloroquine: Boolean,
