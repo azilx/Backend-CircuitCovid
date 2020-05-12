@@ -12,6 +12,10 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var hospitalSchema = new mongoose.Schema({
     name : String ,
+    gouvernorat: String,
+    delegation: String,
+    adresse: String,
+    codePostale: Number,
     user : {type:user.schema , ref:'users'}
 });
 module.exports =  mongoose.model('hospital',hospitalSchema);
