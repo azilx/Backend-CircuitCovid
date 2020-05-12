@@ -14,6 +14,7 @@ var hospitalSchema = new mongoose.Schema({
     name : String ,
     gouvernorat: String,
     delegation: String,
+    service : String,
     adresse: String,
     codePostale: Number,
     user : {type:user.schema , ref:'users'}
