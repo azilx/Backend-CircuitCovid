@@ -136,7 +136,10 @@ exports.login_post = function(req, res) {
         res.status(400).send(e);
     })
 }
-
+exports.update = function(id,obj){
+    User.findByIdAndUpdate({_id : id},obj,function(err,doc){
+    });
+}
 exports.changePassword = function(req, res) {
     changeInfo = (({
         _id, old_password, new_password, confirm_password

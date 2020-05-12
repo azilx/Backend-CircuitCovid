@@ -13,4 +13,11 @@ router.get('/user/getall', userController.getall);
 
 router.post('/changePassword', userController.changePassword);
 
+router.put('/update', function (req, res, next) {
+    userController.update(req.body._id,req.body);
+    res.status(200).send({
+      status: true,
+      error: '',
+  });
+  })
 module.exports = router;
