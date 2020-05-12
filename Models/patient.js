@@ -2,6 +2,7 @@ const config = require('../config');
 var mongoose = require('mongoose');
 const doctor = require('./doctor');
 const user = require('./user');
+const hospital = require('./hospital');
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
 
