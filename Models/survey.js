@@ -34,6 +34,9 @@ var SurveySchema = new mongoose.Schema({
     pas: {type: Number,  min: 0, max: 30},
     pad: {type: Number,  min: 0, max: 20},
     doctor : {type:doctor.schema , ref:'Doctor'},
-    patient : {type:patient.schema , ref:'Patient'}
+    patient : {type:patient.schema , ref:'Patient'},
+    user: {
+        _id: String
+    }
 });
 module.exports =  mongoose.model('Survey',SurveySchema);
