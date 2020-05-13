@@ -31,6 +31,9 @@ exports.add = function(data,res){
 exports.getAll = function(){
     return doctor.find();
 }
+exports.getByHospitalService = function(hospital){
+    return doctor.find({hospital: hospital});
+}
 exports.getById = function(id) {
     return doctor.findById(id);
 }
