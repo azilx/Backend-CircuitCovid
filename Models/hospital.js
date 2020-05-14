@@ -14,10 +14,8 @@ var hospitalSchema = new mongoose.Schema({
     name : String ,
     gouvernorat: String,
     delegation: String,
-    service : String,
     type: String,
     adresse: String,
-    codePostale: Number,
-    user : {type:user.schema , ref:'users'}
+    codePostale: Number
 });
 module.exports =  mongoose.model('hospital',hospitalSchema);
