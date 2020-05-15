@@ -2,12 +2,23 @@ var doctor = require('../Models/doctor');
 var User = require('../Models/user');
 var bcrypt = require('bcryptjs');
 var config = require('../config');
+var Hospital = require('../Models/hospital');
 
 exports.add = function(data,res){
   
+    let hospital = (({
+        name,
+        gouvernorat,
+        delegation,
+        type,
+        adresse,
+        codePostale
+    }) => ({name, gouvernorat, delegation, type, adresse, codePostale }))(data.hospital);
+
     let user = (({
         name, user, pwd, role
     }) => ({name, user, pwd, role}))(data.user);
+
 
     User.findOne({user: user.user}).then((doc) => {
         if (doc) {
@@ -17,17 +28,32 @@ exports.add = function(data,res){
             })
 
         } else {
+            if(!data.hospital._id){
                 user.pwd = bcrypt.hashSync(user.pwd, config.salt);
-
+                user = new User(user);
+                // save new user to db
+                user.save();
+                hospital = new Hospital(hospital);
+                // save new user to db
+                hospital.save();
+                doc = new doctor(data);
+                doc.user={_id : user._id};
+                doc.hospital={_id : hospital._id};
+                doc.save();
+            }
+            else {
+                user.pwd = bcrypt.hashSync(user.pwd, config.salt);
                 user = new User(user);
                 // save new user to db
                 user.save();
                 doc = new doctor(data);
-                doc.user={_id : user._id}
+                doc.user={_id : user._id};
                 doc.save();
+            }
             }
         });
 };
+
 exports.getAll = function(){
     return doctor.find();
 }

@@ -3,11 +3,22 @@ var User = require('../Models/user');
 var bcrypt = require('bcryptjs');
 var config = require('../config');
 var mongoose = require('mongoose');
+var Hospital = require('../Models/hospital');
+
 exports.add = function(data){
     
     let user = (({
         name, user, pwd, role
     }) => ({name, user, pwd, role}))(data.user);
+
+    let hospital = (({
+        name,
+        gouvernorat,
+        delegation,
+        type,
+        adresse,
+        codePostale
+    }) => ({name, gouvernorat, delegation, type, adresse, codePostale }))(data.hospital);
 
     User.findOne({user: user.user}).then((doc) => {
         if (doc) {
@@ -17,15 +28,28 @@ exports.add = function(data){
             })
 
         } else {
+            if(!data.hospital._id){
                 user.pwd = bcrypt.hashSync(user.pwd, config.salt);
-
                 user = new User(user);
-
                 // save new user to db
                 user.save();
+                hospital = new Hospital(hospital);
+                // save new user to db
+                hospital.save();
                 pat = new patient(data);
-                pat.user={_id : user._id}
+                pat.user={_id : user._id};
+                pat.hospital={_id : hospital._id};
                 pat.save();
+            }
+            else {
+                user.pwd = bcrypt.hashSync(user.pwd, config.salt);
+                user = new User(user);
+                // save new user to db
+                user.save();
+                pat = new doctor(data);
+                pat.user={_id : user._id};
+                pat.save();
+            }
             }
         });
 };
@@ -63,9 +87,6 @@ exports.getAll = function(){
 }
 exports.getByDoctor = function(id){
     return patient.find({doctor: {_id : id}});
-}
-exports.getByHospitalService = function(hospital){
-    return patient.find({hospital: hospital});
 }
 exports.getById = function(id) {
     return patient.findById(id);
