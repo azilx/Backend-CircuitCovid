@@ -3,6 +3,11 @@ var router = express.Router();
 var patientController = require('../Controllers/patientController');
 
 
+router.get('/getPatient', function(req, res, next) {
+  patientController.getPatient(req.body).exec().then(data =>{
+      res.json(data);
+  })
+});
 router.get('/all', function(req, res, next) {
     patientController.getAll().exec().then(data =>{
         res.json(data);

@@ -82,6 +82,10 @@ exports.addMany = function(users){
             });
     });
 };
+
+exports.getPatient = function(pat){
+    return patient.find(pat);
+}
 exports.getAll = function(){
     return patient.find();
 }
